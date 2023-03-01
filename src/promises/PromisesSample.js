@@ -81,7 +81,8 @@ export default function PromisesSample() {
   // ES7 ile sıralı işlemler üzerinde kontrolü sağlamak için async await yapısı geldi.
 
   // Self Invoked Function
-  (async function sample() {
+  (async function () {
+    // anonymous isimsiz function çalıştırdık
     try {
       // hata yoksa bu blok çalışacak
 

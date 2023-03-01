@@ -8,21 +8,43 @@ function User() {
     // yapılcak işlemler
     // component ilk init olduğunda api işlemlerini useEffect [] olanında yapalım.
 
-    // 1. yöntem
+    // 1. yöntem (Promise yöntemi)
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((response) => {
         console.log("f-response", response);
         return response.json(); // veriyi json formatına dönüştür
       })
       .then((data) => {
+        // promise chain 2 // senkron olan işlemleri sıralı yaptık
         console.log("data", data);
+      })
+      .catch((err) => {
+        // promise hata durumu
+        console.log("promise-err", err);
       });
 
     // 2. yöntem
-    axios.get("https://jsonplaceholder.typicode.com/users").then((response) => {
-      console.log("response", "data", response, response.data);
-      setUsers([...response.data]);
-    });
+    axios
+      .get("https://jsonplaceholder.typicode.com/users")
+      .then((response) => {
+        console.log("response", "data", response, response.data);
+        setUsers([...response.data]);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+
+    // 3. yöntem
+    // async function içerisinde de await keyword ile axios kullanabiliriz. (fetch de de uygulanaır) async await yöntemi
+    const asyncFunc = async () => {
+      try {
+        let res = await axios.get("https://jsonplaceholder.typicode.com/users");
+      } catch (error) {
+        console.log("netoworkerr", error);
+      }
+    };
+
+    asyncFunc();
 
     return () => {
       // clean up işlemi
